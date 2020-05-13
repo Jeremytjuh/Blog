@@ -31,13 +31,11 @@ class PostController extends Controller
         return redirect('/posts');
     }
 
-    public function edit($id){
-        $post = Post::findOrFail($id);
+    public function edit(Post $post){
         return view("post.edit")->withPost($post);
     }
 
-    public function update($id){
-        $post = Post::findOrFail($id);
+    public function update(Post $post){
         $post->title = request('txtTitle');
         $post->slug = request('txtSlug');
         $post->content = request('txtContent');
@@ -46,14 +44,11 @@ class PostController extends Controller
         return redirect()->route('post.single',$post->slug);
     }
 
-    public function destroy($id){
-        Post::findOrFail($id)->delete();
+    public function destroy(Post $post){
         return redirect()->route('post.index');
     }
 
-    public function publish($id){
-        $post = Post::findOrFail($id);
-
+    public function publish(Post $post){
         $post->published_at = now();
         $post->save();
 

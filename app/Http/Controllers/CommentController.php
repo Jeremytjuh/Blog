@@ -20,5 +20,9 @@ class CommentController extends Controller
         return redirect()->route('post.single', $post->slug);
     }
 
-    public function delete
+    public function destroy($commentid){
+        $comment = Comment::findOrFail($commentid);
+        $comment->delete();
+        return redirect()->route('post.single', $comment->post->slug);
+    }
 }
