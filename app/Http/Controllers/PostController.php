@@ -9,8 +9,12 @@ use App\Post;
 
 class PostController extends Controller
 {
+    public function homepage(){
+        return view('welcome');
+    }
+
     public function index(){
-        return view("post.index")->withPosts(DB::table('posts')->orderBy('id', 'desc')->simplePaginate(1));
+        return view("post.index")->withPosts(DB::table('posts')->orderBy('id', 'desc')->simplePaginate(8));
     }
 
     public function single($slug){

@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
-
+/*
 Route::get('/voorbeeld', function () {
     return 'Dit is een voorbeeld!';
 });
@@ -25,9 +25,10 @@ Route::get('/json', function () {
 
 Route::get('/date', function () {
     return date('D');
-});
+});*/
 Auth::routes();
 
+Route::get('/', 'PostController@homepage');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/posts', 'PostController@index')->name('post.index');
@@ -39,4 +40,4 @@ Route::put('/posts/{post}', 'PostController@update')->name('post.update')->middl
 Route::delete('/posts/{post}', 'PostController@destroy')->name('post.destroy')->middleware('can:delete,post');
 Route::post('/posts/{post}/publish', 'PostController@publish')->name('post.publish')->middleware('can:publish,post');
 Route::post('posts/{postid}/comment', 'CommentController@store')->name('comment.store')->middleware('auth');
-Route::delete('/comment/{comment}', 'CommentController@destroy')->name('comment.destroy')->middleware('can:delete,comment'); 
+Route::delete('/comment/{comment}', 'CommentController@destroy')->name('comment.destroy');

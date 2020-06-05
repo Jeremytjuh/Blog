@@ -22,7 +22,10 @@ class CommentController extends Controller
 
     public function destroy($commentid){
         $comment = Comment::findOrFail($commentid);
-        $comment->delete();
-        return redirect()->route('post.single', $comment->post->slug);
+        if(Auth::user()->can('delete', $comment)){
+            $comment->delete();
+            return redirect()->route('post.single', $comment->post->slug);
+        }
+        abort(403, 'This action is unauthorized.');
     }
 }
